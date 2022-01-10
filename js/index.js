@@ -129,8 +129,7 @@ $(document).ready(function () {
         $('.btn').css('background-color', 'grey');
         $('.deleteBtn').attr('disabled', 'true');
         $('.editBtn').attr('disabled', 'true');
-        $('.add').attr('disabled', 'true');
-        $('.add').css('background-color', 'red');
+        $('.input').attr('disabled', 'true');
 
         if (data.done == true) {
             $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
@@ -156,9 +155,9 @@ $(document).ready(function () {
             clearTimeout(timer);
             clearInterval(againCount);
             makeRequest('PUT', deleteUrl(data.id), data, getList);
+            $('.btn').removeAttr('disabled');
+            $('.input').removeAttr('disabled');
             $('.btn').css('background-color', '#4676D7');
-            $('.add').attr('disabled', 'false');
-            $('.add').css('background-color', 'rgb(43, 153, 91)');
         }
 
         //clear timer
@@ -192,14 +191,14 @@ $(document).ready(function () {
 
     //unchecked
     const filterListHandler = () => {
-        const newArik = allObjectArr.results.filter(arr => arr.done == false);
-        displayTasks(newArik);
+        const newFilteredArray = allObjectArr.results.filter(arr => arr.done == false);
+        displayTasks(newFilteredArray);
     }
 
     //checked
     const filterCheckListHandler = () => {
-        const newArik = allObjectArr.results.filter(arr => arr.done == true);
-        displayTasks(newArik);
+        const newFilteredArray = allObjectArr.results.filter(arr => arr.done == true);
+        displayTasks(newFilteredArray);
     }
 
     //show all tasks
