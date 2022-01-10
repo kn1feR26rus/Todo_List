@@ -129,6 +129,8 @@ $(document).ready(function () {
         $('.withOutTimer').attr('disabled', 'true');
         $('.navBtn').attr('disabled', 'true');
         $('.navBtn').css('background-color', 'grey');
+        $('.deleteBtn').attr('disabled', 'true');
+        $('.editBtn').attr('disabled', 'true');
 
         if (data.done == true) {
             $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
