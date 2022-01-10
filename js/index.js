@@ -33,6 +33,7 @@ $(document).ready(function () {
 
     //display tasks
     const displayTasks = (dataFromServer) => {
+        $("#todo").empty();
         $(dataFromServer).each(function (i) {
             let item = dataFromServer[i];
             let card = $('<div></div>').addClass('card-body');
@@ -56,7 +57,6 @@ $(document).ready(function () {
         data.id = $(this).parent().attr('currentId');
         data.title = $(this).parent().children('.text').text();
         data.done = $(this).is(':checked') ? true : false;
-        $("#todo").empty();
         makeRequest('DELETE', deleteUrl(data.id), data, getList);
     })
 
@@ -76,7 +76,6 @@ $(document).ready(function () {
                 if ($(this).parent().children('.text').text().length >= 1) {
                     data.title = $(this).parent().children('.text').text();
                     $('#text').attr('contentEditable', 'false');
-                    $("#todo").empty();
                     $('.confirm').css('display', 'none');
                     makeRequest('PUT', deleteUrl(data.id), data, getList);
                 } else {
@@ -89,7 +88,6 @@ $(document).ready(function () {
             if ($(this).parent().children('.text').text().length >= 1) {
                 data.title = $(this).parent().children('.text').text();
                 $('#text').attr('contentEditable', 'false');
-                $("#todo").empty();
                 $(this).css('display', 'none');
                 makeRequest('PUT', deleteUrl(data.id), data, getList);
             } else {
@@ -127,8 +125,8 @@ $(document).ready(function () {
         data.done = $(this).is(':checked') ? true : false;
         $(this).removeClass('withOutTimer').addClass('withTimer')
         $('.withOutTimer').attr('disabled', 'true');
-        $('.navBtn').attr('disabled', 'true');
-        $('.navBtn').css('background-color', 'grey');
+        $('.btn').attr('disabled', 'true');
+        $('.btn').css('background-color', 'grey');
         $('.deleteBtn').attr('disabled', 'true');
         $('.editBtn').attr('disabled', 'true');
 
@@ -136,9 +134,11 @@ $(document).ready(function () {
             $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
             $(this).parent().append('<p class="timerCount"></p>');
             $('.timerCount').text(timerTime);
+
             function againCounter() {
                 $('.timerCount').text(--timerTime);
             }
+
             againCount = setInterval(againCounter, 1000);
             timer = setTimeout(refreshCheck, 5500);
 
@@ -153,8 +153,8 @@ $(document).ready(function () {
         function refreshCheck() {
             clearTimeout(timer);
             clearInterval(againCount);
-            $("#todo").empty();
             makeRequest('PUT', deleteUrl(data.id), data, getList);
+            $('.btn').css('background-color', '#4676D7');
         }
 
         //clear timer
@@ -171,7 +171,6 @@ $(document).ready(function () {
         if (allObjectArr.count >= 10 && allObjectArr.next != null) {
             $('#todo').append('<button class="next navBtn btn">Next</button>');
             $('.next').click(function () {
-                $("#todo").empty();
                 makeRequest('GET', allObjectArr.next, null, getListHandler);
             })
         }
@@ -182,7 +181,6 @@ $(document).ready(function () {
         if (allObjectArr.count >= 10 && allObjectArr.previous != null) {
             $('#todo').append('<button class="prev navBtn btn">Previous</button>');
             $('.prev').click(function () {
-                $("#todo").empty();
                 makeRequest('GET', allObjectArr.previous, null, getListHandler);
             })
         }
@@ -190,14 +188,12 @@ $(document).ready(function () {
 
     //unchecked
     const filterListHandler = () => {
-        $("#todo").empty();
         const newArik = allObjectArr.results.filter(arr => arr.done == false);
         displayTasks(newArik);
     }
 
     //checked
     const filterCheckListHandler = () => {
-        $("#todo").empty();
         const newArik = allObjectArr.results.filter(arr => arr.done == true);
         displayTasks(newArik);
     }
@@ -206,7 +202,6 @@ $(document).ready(function () {
     allBtn.click(function () {
         isNeedFilteredList = false;
         isNeedFilteredCheckedList = false;
-        $("#todo").empty();
         getList();
     })
 
