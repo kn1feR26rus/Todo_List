@@ -129,6 +129,8 @@ $(document).ready(function () {
         $('.btn').css('background-color', 'grey');
         $('.deleteBtn').attr('disabled', 'true');
         $('.editBtn').attr('disabled', 'true');
+        $('.add').attr('disabled', 'true');
+        $('.add').css('background-color', 'red');
 
         if (data.done == true) {
             $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
@@ -155,6 +157,8 @@ $(document).ready(function () {
             clearInterval(againCount);
             makeRequest('PUT', deleteUrl(data.id), data, getList);
             $('.btn').css('background-color', '#4676D7');
+            $('.add').attr('disabled', 'false');
+            $('.add').css('background-color', 'rgb(43, 153, 91)');
         }
 
         //clear timer
