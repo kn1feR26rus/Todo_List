@@ -39,7 +39,7 @@ $(document).ready(function () {
             card.attr('currentId', `${item.id}`);
             card.html(
                 `<div class="text" id="text">${item.title}</div>
-                 <input type='checkbox' class="checkbox" id="checkbox" ${(item.done) ? 'checked' : ''}>
+                 <input type='checkbox' class="checkbox withOutTimer" id="checkbox" ${(item.done) ? 'checked' : ''}>
                  <button class="editBtn" id="editBtn"></button>
                  <button class="deleteBtn" id="deleteBtn"></button>
                  <button class="confirm" id="confirm"></button>`);
@@ -125,7 +125,10 @@ $(document).ready(function () {
         data.id = $(this).parent().attr('currentId');
         data.title = $(this).parent().children('.text').text();
         data.done = $(this).is(':checked') ? true : false;
-        $(this).addClass('withTimer');
+        $(this).removeClass('withOutTimer').addClass('withTimer')
+        $('.withOutTimer').attr('disabled', 'true');
+        $('.navBtn').attr('disabled', 'true');
+        $('.navBtn').css('background-color', 'grey');
 
         if (data.done == true) {
             $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
