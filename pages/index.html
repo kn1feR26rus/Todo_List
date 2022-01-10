@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Todo">
+    <meta name="keywords" content="todos">
+    <meta name="author" content="Oleg Kovalenko">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>ToDo</title>
+</head>
+<body>
+<section class="learnTodo">
+    <div class="container" id="container">
+        <h1 class="title">Todo List</h1>
+        <div class="add-block" id="add-block">
+            <input type="text" class="input" id="input" placeholder="New Todo">
+            <input type="button" class="add" id="add-btn" value="Add new todo">
+        </div>
+        <div class="tasks-options" id="tasks-options">
+            <button class="allBtn btn" id="allBtn" >All</button>
+            <button class="active filterBtn btn" id="active" data-filter="active">Todo</button>
+            <button class="arch filterBtn btn" id="arch" data-filter="disactive">Done</button>
+        </div>
+        <div class="todo" id="todo">
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="../js/index.js"></script>
+</body>

@@ -1,0 +1,215 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    border: 3px double #f86358;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    background-color: rgb(238, 236, 236);
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 450px;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.add-block {
+    width: 350px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.input {
+    width: 220px;
+    height: 20px;
+    border: 1px solid #cecece;
+    border-radius: 8px;
+    text-align: center;
+    height: 30px;
+}
+
+.add {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    color: #fff;
+    width: 110px;
+    height: 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    margin-left: 10px;
+    padding: 8px 16px;
+    margin-right: 0;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: background-color 0.1s linear;
+    -moz-transition: background-color 0.1s linear;
+    -o-transition: background-color 0.1s linear;
+    transition: background-color 0.1s linear;
+    background-color: rgb(43, 153, 91);
+    border: 1px solid rgb(33, 126, 74);
+    cursor: pointer;
+}
+
+.add:hover {
+    background-color: rgb(75, 183, 141);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: row;
+    width: 490px;
+    word-wrap: break-word;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.text {
+    margin: 0;
+    max-width: 350px;
+    width: 350px;
+    margin-left: 5px;
+    background-color: white;
+    border-radius: 4px;
+    min-height: 20px;
+    max-height: auto;
+    text-indent: 10px;
+}
+
+.checkbox {
+    margin-left: 10px;
+}
+
+.text_checked {
+    text-decoration: line-through;
+    color: red;
+}
+
+.timerCount {
+    margin: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.hideAct {
+    display: none;
+}
+
+.tasks-options {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.buttons {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
+
+.active {
+    margin-right: 25px;
+}
+
+.editBtn {
+    background: url(..//pic/edit.png) 50% 50% no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.deleteBtn {
+    background: url(..//pic/delete.png) 50% 50% no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.timingDelete {
+    text-decoration: line-through;
+    color: red;
+}
+
+.navBtn {
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.confirme {
+    width: 20px;
+    height: 20px;
+    display: none;
+    margin-left: 5px;
+    background: url('../pic/conf.svg') no-repeat 0 0;
+    background-size: contain;
+    border: none;
+}
+
+.timerCount {
+    margin-left: 12px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+.btn {
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background: #4676D7;
+    color: #fff;
+    padding: 6px 15px;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background: #1d49aa;
+}
+
+.btn:focus {
+    outline: none;
+  box-shadow: 0 0 0 4px #cbd6ee;
+}
+
+.allBtn {
+    margin-right: 25px;
+    width: 45px;
+    padding-right: 40px;
+    padding-left: 20px;
+}
+
+.closeEdit {
+    width: 15px;
+    height: 15px;
+    background: url('../pic/closeEdit.svg') no-repeat 0 0;
+    background-size: contain;
+    border: none;
+    margin-left: 5px;
+}
