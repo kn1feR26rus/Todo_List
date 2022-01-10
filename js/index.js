@@ -42,7 +42,7 @@ $(document).ready(function () {
                  <input type='checkbox' class="checkbox" id="checkbox" ${(item.done) ? 'checked' : ''}>
                  <button class="editBtn" id="editBtn"></button>
                  <button class="deleteBtn" id="deleteBtn"></button>
-                 <button class="confirme" id="confirme"></button>`);
+                 <button class="confirm" id="confirm"></button>`);
             $('#todo').prepend(card);
             if ($('#checkbox').prop('checked')) {
                 $('#text').css({'color': 'red', 'textDecoration': 'line-through'})
@@ -63,10 +63,11 @@ $(document).ready(function () {
     //edit task
     $(document).on('click', '.editBtn', function () {
         let data = {};
+        const lastText = $(this).parent().children('.text');
         data.id = $(this).parent().attr('currentId');
         $('.text').attr('contentEditable', 'true');
         $(this).parent().children('.text').focus();
-        $(this).parent().children('.confirme').css('display', 'block');
+        $(this).parent().children('.confirm').css('display', 'block');
 
         //confirm on enter
         $('.text').keydown(function (e) {
@@ -76,7 +77,7 @@ $(document).ready(function () {
                     data.title = $(this).parent().children('.text').text();
                     $('#text').attr('contentEditable', 'false');
                     $("#todo").empty();
-                    $('.confirme').css('display', 'none');
+                    $('.confirm').css('display', 'none');
                     makeRequest('PUT', deleteUrl(data.id), data, getList);
                 } else {
                     alert('Field cant be empty!');
@@ -84,7 +85,7 @@ $(document).ready(function () {
             }
         })
         //confirm on click btn
-        $('.confirme').click(function () {
+        $('.confirm').click(function () {
             if ($(this).parent().children('.text').text().length >= 1) {
                 data.title = $(this).parent().children('.text').text();
                 $('#text').attr('contentEditable', 'false');
@@ -97,13 +98,21 @@ $(document).ready(function () {
         })
 
         $(this).replaceWith('<button class="closeEdit"></button>')
-        $('.closeEdit').click(function () {
-            if ($(this).parent().children('.text').text().length >= 1) {
-                $(this).replaceWith('<button class="editBtn" id="editBtn"></button>');
-                $('.confirme').css('display', 'none');
+
+        function closeWithSaveText(idx) {
+            if (idx.length >= 1) {
+                $('.closeEdit').replaceWith('<button class="editBtn" id="editBtn"></button>');
+                $('.confirm').css('display', 'none');
+                $(idx).attr('contentEditable', 'false');
             } else {
                 alert('Field cant be empty!');
             }
+            const currentText = allObjectArr.results.filter(arr => arr.id == data.id);
+            idx.text(currentText[0].title)
+        }
+
+        $('.closeEdit').click(function () {
+            closeWithSaveText(lastText)
         })
     })
 
@@ -116,16 +125,15 @@ $(document).ready(function () {
         data.id = $(this).parent().attr('currentId');
         data.title = $(this).parent().children('.text').text();
         data.done = $(this).is(':checked') ? true : false;
+        $(this).addClass('withTimer');
 
         if (data.done == true) {
             $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
             $(this).parent().append('<p class="timerCount"></p>');
             $('.timerCount').text(timerTime);
-
             function againCounter() {
                 $('.timerCount').text(--timerTime);
             }
-
             againCount = setInterval(againCounter, 1000);
             timer = setTimeout(refreshCheck, 5500);
 
