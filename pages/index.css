@@ -7,7 +7,8 @@
     margin-bottom: 50px;
     justify-content: center;
     align-items: center;
-    border: 3px double #f86358;
+    border: 3px double #4676D7;
+    border-radius: 10px;
     padding-bottom: 50px;
     padding-top: 50px;
     background-color: rgb(238, 236, 236);
