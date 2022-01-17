@@ -14,13 +14,12 @@ $(document).ready(function () {
 
     const mainUrl = 'http://82.202.204.90:8080/api/todo/?format=json';
 
-    const deleteUrl = (data) => {
-        return url = `http://82.202.204.90:8080/api/todo/${data}/?format=json`
+    const deleteUrl = (itemIndex) => {
+        return `http://82.202.204.90:8080/api/todo/${itemIndex}/?format=json`
     }
 
     //ajax req
-    const makeRequest = (method, url, data, handler = function () {
-    }) => {
+    function makeRequest(method, url, data, handler = function(){}) {
         $.ajax({
             url: url,
             method: method,
@@ -28,16 +27,16 @@ $(document).ready(function () {
             success: function (response) {
                 handler(response);
             }
-        })
+        });
     }
 
     //display tasks
-    const displayTasks = (dataFromServer) => {
+    function displayTasks(dataFromServer) {
         $("#todo").empty();
         $(dataFromServer).each(function (i) {
             let item = dataFromServer[i];
             let card = $('<div></div>').addClass('card-body');
-            card.attr('currentId', `${item.id}`);
+            card.attr('currentId', item.id);
             card.html(
                 `<div class="text" id="text">${item.title}</div>
                  <input type='checkbox' class="checkbox withOutTimer" id="checkbox" ${(item.done) ? 'checked' : ''}>
@@ -48,7 +47,7 @@ $(document).ready(function () {
             if ($('#checkbox').prop('checked')) {
                 $('#text').css({'color': 'red', 'textDecoration': 'line-through'})
             }
-        })
+        });
     }
 
     //delete task
@@ -56,9 +55,9 @@ $(document).ready(function () {
         let data = {};
         data.id = $(this).parent().attr('currentId');
         data.title = $(this).parent().children('.text').text();
-        data.done = $(this).is(':checked') ? true : false;
+        data.done = $(this).is(':checked');
         makeRequest('DELETE', deleteUrl(data.id), data, getList);
-    })
+    });
 
     //edit task
     $(document).on('click', '.editBtn', function () {
@@ -76,63 +75,62 @@ $(document).ready(function () {
                 if ($(this).parent().children('.text').text().length >= 1) {
                     data.title = $(this).parent().children('.text').text();
                     $('#text').attr('contentEditable', 'false');
-                    $('.confirm').css('display', 'none');
+                    $('.confirm').hide();
                     makeRequest('PUT', deleteUrl(data.id), data, getList);
                 } else {
                     alert('Field cant be empty!');
                 }
             }
-        })
+        });
         //confirm on click btn
         $('.confirm').click(function () {
             if ($(this).parent().children('.text').text().length >= 1) {
                 data.title = $(this).parent().children('.text').text();
                 $('#text').attr('contentEditable', 'false');
-                $(this).css('display', 'none');
+                $(this).hide();
                 makeRequest('PUT', deleteUrl(data.id), data, getList);
             } else {
                 alert('Field cant be empty!');
             }
-        })
+        });
 
-        $(this).replaceWith('<button class="closeEdit"></button>')
+        $(this).replaceWith('<button class="closeEdit"></button>');
 
         function closeWithSaveText(idx) {
             if (idx.length >= 1) {
                 $('.closeEdit').replaceWith('<button class="editBtn" id="editBtn"></button>');
-                $('.confirm').css('display', 'none');
+                $('.confirm').hide();
                 $(idx).attr('contentEditable', 'false');
             } else {
                 alert('Field cant be empty!');
             }
-            const currentText = allObjectArr.results.filter(arr => arr.id == data.id);
-            idx.text(currentText[0].title)
+            const currentText = allObjectArr.results.filter(arr => arr.id === Number(data.id));
+            idx.text(currentText[0].title);
         }
 
         $('.closeEdit').click(function () {
-            closeWithSaveText(lastText)
-        })
-    })
+            closeWithSaveText(lastText);
+        });
+    });
 
     //checkboxes change
     $(document).on('change', '.checkbox', function () {
-        let data = {};
+        const data = {};
         let timerTime = 5;
         let timer;
         let againCount;
         data.id = $(this).parent().attr('currentId');
         data.title = $(this).parent().children('.text').text();
-        data.done = $(this).is(':checked') ? true : false;
-        $(this).removeClass('withOutTimer').addClass('withTimer')
+        data.done = $(this).is(':checked');
+        $(this).removeClass('withOutTimer').addClass('withTimer');
         $('.withOutTimer').attr('disabled', 'true');
-        $('.btn').attr('disabled', 'true');
-        $('.btn').css('background-color', 'grey');
+        $('.btn').attr('disabled', 'true').css('background-color', 'grey');
         $('.deleteBtn').attr('disabled', 'true');
         $('.editBtn').attr('disabled', 'true');
         $('.input').attr('disabled', 'true');
 
-        if (data.done == true) {
-            $(this).parent().children('.text').css({'color': 'red', 'textDecoration': 'line-through'});
+        if (data.done) {
+            $(this).parent().children('.text').css({color: 'red', textDecoration: 'line-through'});
             $(this).parent().append('<p class="timerCount"></p>');
             $('.timerCount').text(timerTime);
 
@@ -155,9 +153,8 @@ $(document).ready(function () {
             clearTimeout(timer);
             clearInterval(againCount);
             makeRequest('PUT', deleteUrl(data.id), data, getList);
-            $('.btn').removeAttr('disabled');
+            $('.btn').removeAttr('disabled').css('background-color', '#4676D7');
             $('.input').removeAttr('disabled');
-            $('.btn').css('background-color', '#4676D7');
         }
 
         //clear timer
@@ -166,8 +163,8 @@ $(document).ready(function () {
             clearTimeout(timer);
             clearInterval(againCount);
             $(this).parent().children('.text').css({'color': 'black', 'textDecoration': 'none'});
-        })
-    })
+        });
+    });
 
     //next page list
     function checkNext() {
@@ -175,7 +172,7 @@ $(document).ready(function () {
             $('#todo').append('<button class="next navBtn btn">Next</button>');
             $('.next').click(function () {
                 makeRequest('GET', allObjectArr.next, null, getListHandler);
-            })
+            });
         }
     }
 
@@ -185,20 +182,18 @@ $(document).ready(function () {
             $('#todo').append('<button class="prev navBtn btn">Previous</button>');
             $('.prev').click(function () {
                 makeRequest('GET', allObjectArr.previous, null, getListHandler);
-            })
+            });
         }
     }
 
     //unchecked
-    const filterListHandler = () => {
-        const newFilteredArray = allObjectArr.results.filter(arr => arr.done == false);
-        displayTasks(newFilteredArray);
+    function filterListHandler() {
+        displayTasks(allObjectArr.results.filter(arr => !arr.done));
     }
 
     //checked
-    const filterCheckListHandler = () => {
-        const newFilteredArray = allObjectArr.results.filter(arr => arr.done == true);
-        displayTasks(newFilteredArray);
+    function filterCheckListHandler() {
+        displayTasks(allObjectArr.results.filter(arr => arr.done));
     }
 
     //show all tasks
@@ -206,21 +201,21 @@ $(document).ready(function () {
         isNeedFilteredList = false;
         isNeedFilteredCheckedList = false;
         getList();
-    })
+    });
 
     //show active tasks
     activeBtn.click(function () {
         isNeedFilteredList = true;
         isNeedFilteredCheckedList = false;
         getList();
-    })
+    });
 
     //show done tasks
     archBtn.click(function () {
         isNeedFilteredList = false;
         isNeedFilteredCheckedList = true;
         getList();
-    })
+    });
 
     //add new task
     addBtn.click(() => {
@@ -231,13 +226,13 @@ $(document).ready(function () {
         }
         if (aNewTask.title !== '') {
             makeRequest('POST', mainUrl, aNewTask);
-            document.getElementById("input").value = "";
-            document.getElementById("todo").innerHTML = "";
+            $("#input").val('');
+            $("#todo").html('');
             getList();
         } else {
-            alert('ERROR')
+            alert('ERROR');
         }
-    })
+    });
 
     $(textInput).keydown(function (e) {
         if (e.keyCode === 13) {
@@ -250,16 +245,15 @@ $(document).ready(function () {
             }
             if (aNewTask.title !== '') {
                 makeRequest('POST', mainUrl, aNewTask);
-                document.getElementById("input").value = "";
-                document.getElementById("todo").innerHTML = "";
+                $("#input").val('');
+                $("#todo").html('');
                 getList();
             } else {
                 alert('ERROR');
             }
         }
-    })
+    });
 
-    //
     function getListHandler(response) {
         allObjectArr = response;
         if (isNeedFilteredList) {

@@ -2,9 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 500px;
-    margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin: 50px auto 50px;
     justify-content: center;
     align-items: center;
     border: 3px double #4676D7;
@@ -18,10 +16,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
+    margin: 30px 0 0 20px;
     width: 450px;
-    margin-top: 30px;
-    margin-left: 20px;
 }
 
 .add-block {
@@ -32,7 +28,6 @@
 
 .input {
     width: 220px;
-    height: 20px;
     border: 1px solid #cecece;
     border-radius: 8px;
     text-align: center;
@@ -83,14 +78,12 @@
 }
 
 .text {
-    margin: 0;
+    margin: 0 0 0 5px;
     max-width: 350px;
     width: 350px;
-    margin-left: 5px;
     background-color: white;
     border-radius: 4px;
     min-height: 20px;
-    max-height: auto;
     text-indent: 10px;
 }
 
@@ -116,8 +109,7 @@
 }
 
 .tasks-options {
-    margin: 0 auto;
-    margin-top: 20px;
+    margin: 20px auto 0;
 }
 
 .buttons {
@@ -134,7 +126,7 @@ button {
 }
 
 .editBtn {
-    background: url(..//pic/edit.png) 50% 50% no-repeat;
+    background: url(../pic/edit.png) 50% 50% no-repeat;
     background-size: contain;
     width: 15px;
     height: 15px;
@@ -144,7 +136,7 @@ button {
 }
 
 .deleteBtn {
-    background: url(..//pic/delete.png) 50% 50% no-repeat;
+    background: url(../pic/delete.png) 50% 50% no-repeat;
     background-size: contain;
     width: 15px;
     height: 15px;
@@ -160,8 +152,7 @@ button {
 
 .navBtn {
     width: 100px;
-    margin: 0 auto;
-    margin-top: 10px;
+    margin: 10px auto 0;
 }
 
 .confirm {
@@ -169,7 +160,7 @@ button {
     height: 20px;
     display: none;
     margin-left: 5px;
-    background: url('../pic/conf.svg') no-repeat 0 0;
+    background: url(../pic/conf.svg) no-repeat 0 0;
     background-size: contain;
     border: none;
 }
